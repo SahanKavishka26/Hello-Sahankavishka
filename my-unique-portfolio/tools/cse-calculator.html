@@ -1,0 +1,43 @@
+<div class="max-w-4xl mx-auto p-8 bg-white/10 dark:bg-gray-900/60 rounded-3xl border border-green-500/20 backdrop-blur-xl">
+    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2"><i data-lucide="trending-up" class="text-green-500"></i> CSE Profit Calculator</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+            <label class="block text-sm opacity-60">Buy Price (Rs.)</label>
+            <input type="number" id="buyPrice" class="w-full p-4 rounded-xl bg-black/20 border border-gray-700 focus:border-green-500 outline-none transition">
+            <label class="block text-sm opacity-60">Quantity</label>
+            <input type="number" id="qty" class="w-full p-4 rounded-xl bg-black/20 border border-gray-700 focus:border-green-500 outline-none transition">
+            <label class="block text-sm opacity-60">Sell Price (Rs.)</label>
+            <input type="number" id="sellPrice" class="w-full p-4 rounded-xl bg-black/20 border border-gray-700 focus:border-green-500 outline-none transition">
+            <button onclick="calculateCSE()" class="w-full bg-green-600 p-4 rounded-xl font-bold hover:bg-green-700 transition">Calculate Net Profit</button>
+        </div>
+        <div id="resultArea" class="bg-black/30 p-8 rounded-2xl border border-dashed border-gray-700 flex flex-col justify-center text-center">
+            <p class="text-sm opacity-60 mb-2">Estimated Net Profit</p>
+            <h3 id="netProfit" class="text-4xl font-black text-green-500">Rs. 0.00</h3>
+            <div class="mt-6 text-xs text-left space-y-2 opacity-50">
+                <p id="totalCost">Total Cost: Rs. 0.00</p>
+                <p id="fees">Broker Fees & Taxes (Approx 1.12%): Rs. 0.00</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function calculateCSE() {
+    const buy = parseFloat(document.getElementById('buyPrice').value) || 0;
+    const qty = parseFloat(document.getElementById('qty').value) || 0;
+    const sell = parseFloat(document.getElementById('sellPrice').value) || 0;
+
+    const totalBuy = buy * qty;
+    const totalSell = sell * qty;
+    
+    const buyCommission = totalBuy * 0.0112; // 1.12%
+    const sellCommission = totalSell * 0.0112;
+    
+    const netProfit = (totalSell - sellCommission) - (totalBuy + buyCommission);
+    
+    document.getElementById('netProfit').innerText = `Rs. ${netProfit.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    document.getElementById('netProfit').style.color = netProfit >= 0 ? '#10b981' : '#ef4444';
+    document.getElementById('totalCost').innerText = `Total Cost (with fees): Rs. ${(totalBuy + buyCommission).toFixed(2)}`;
+    document.getElementById('fees').innerText = `Total Fees: Rs. ${(buyCommission + sellCommission).toFixed(2)}`;
+}
+</script>

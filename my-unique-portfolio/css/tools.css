@@ -1,0 +1,116 @@
+/* --- Tools Specific Styling --- */
+
+/* 1. Tool Container Glassmorphism */
+.tool-wrapper {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 2rem;
+    transition: all 0.4s ease;
+}
+
+/* 2. Modern Inputs & Selects */
+input[type="number"], 
+input[type="text"], 
+textarea, 
+select {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark input[type="number"], 
+.dark input[type="text"], 
+.dark textarea, 
+.dark select {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Focus States (Glow Effect) */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* 3. Custom Checkboxes (Estimator) */
+input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+/* 4. Result Card Animation */
+.result-display {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.result-display::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.result-display.active::after {
+    opacity: 1;
+}
+
+/* 5. Tool-Specific Accents */
+/* CSE Calculator (Green) */
+.tool-cse { --accent: #10b981; }
+.tool-cse .btn-calc { background-color: #10b981; }
+.tool-cse .btn-calc:hover { background-color: #059669; }
+
+/* Project Estimator (Blue) */
+.tool-estimator { --accent: #3b82f6; }
+.tool-estimator .btn-calc { background-color: #3b82f6; }
+.tool-estimator .btn-calc:hover { background-color: #2563eb; }
+
+/* Grammar Fixer (Red) */
+.tool-grammar { --accent: #ef4444; }
+.tool-grammar .btn-calc { background-color: #ef4444; }
+.tool-grammar .btn-calc:hover { background-color: #dc2626; }
+
+/* 6. Typography & Numbers */
+.result-number {
+    font-family: 'Monaco', 'Consolas', monospace;
+    letter-spacing: -1px;
+}
+
+/* 7. Buttons Style */
+.btn-calc {
+    color: white;
+    font-weight: 700;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-calc:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(0,0,0,0.3);
+}
+
+.btn-calc:active {
+    transform: translateY(0);
+}
+
+/* 8. Mobile Responsiveness */
+@media (max-width: 768px) {
+    .tool-wrapper {
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+}

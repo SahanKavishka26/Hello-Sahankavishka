@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavi | Utility Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --bg: #ffffff; --text: #0f172a; --accent: #10b981; } /* Tools Theme: Green Accent */
+        html.dark { --bg: #030712; --text: #f8fafc; }
+        body { background-color: var(--bg); color: var(--text); transition: all 0.3s ease; margin: 0; overflow-x: hidden; }
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
+        .content-layer { position: relative; z-index: 10; }
+        nav { backdrop-filter: blur(10px); }
+        .tool-card { backdrop-filter: blur(12px); border: 1px solid rgba(16, 185, 129, 0.2); transition: all 0.3s ease; }
+        .tool-card:hover { transform: translateY(-5px); border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.1); }
+    </style>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+</head>
+<body class="antialiased">
+    <canvas id="bg-canvas"></canvas>
+    <div class="content-layer">
+        <nav class="fixed top-0 w-full z-50 border-b border-gray-200 dark:border-gray-800/50">
+            <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+                <div class="w-1/4"><a href="../index.html" class="text-3xl font-black tracking-tighter">KAVI<span class="text-green-500">.</span></a></div>
+                <div class="hidden md:flex w-1/2 justify-center space-x-10 font-medium">
+                    <a href="../index.html" class="opacity-70 hover:opacity-100 transition">Home</a>
+                    <a href="../projects.html" class="opacity-70 hover:opacity-100 transition">Gallery</a>
+                    <a href="../services.html" class="opacity-70 hover:opacity-100 transition">Services</a>
+                    <a href="#" class="text-green-500 font-bold">Tools</a>
+                </div>
+                <div class="w-1/4 flex justify-end">
+                    <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 ring-green-500 transition-all"><i id="themeIcon" data-lucide="moon" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-7xl mx-auto px-8 min-h-screen pt-32 pb-20">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Utility <span class="text-green-500 text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-400">Toolkit</span></h1>
+                <p class="text-lg opacity-70 max-w-2xl mx-auto">Free, high-performance tools designed to simplify your financial and technical workflows.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <a href="cse-calculator.html" class="tool-card p-8 rounded-3xl bg-white/5 dark:bg-gray-900/40 group">
+                    <div class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6"><i data-lucide="trending-up" class="text-green-500"></i></div>
+                    <h3 class="text-2xl font-bold mb-3 group-hover:text-green-500 transition">CSE Profit Calc</h3>
+                    <p class="text-sm opacity-60 mb-6">Calculate net profit/loss for Colombo Stock Exchange trades with exact broker fees and taxes.</p>
+                    <span class="text-green-500 font-bold flex items-center gap-2">Open Tool <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                </a>
+                <a href="estimator.html" class="tool-card p-8 rounded-3xl bg-white/5 dark:bg-gray-900/40 group">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6"><i data-lucide="calculator" class="text-blue-500"></i></div>
+                    <h3 class="text-2xl font-bold mb-3 group-hover:text-blue-500 transition">Project Estimator</h3>
+                    <p class="text-sm opacity-60 mb-6">Get an instant estimate for your web project based on features, complexity, and timeline.</p>
+                    <span class="text-blue-500 font-bold flex items-center gap-2">Open Tool <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                </a>
+                <a href="grammar-fixer.html" class="tool-card p-8 rounded-3xl bg-white/5 dark:bg-gray-900/40 group">
+                    <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6"><i data-lucide="languages" class="text-red-500"></i></div>
+                    <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition">Grammar Fixer</h3>
+                    <p class="text-sm opacity-60 mb-6">Instantly check and fix English grammar errors. Inspired by Simple English Daily.</p>
+                    <span class="text-red-500 font-bold flex items-center gap-2">Open Tool <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                </a>
+            </div>
+        </main>
+    </div>
+    <script>
+        lucide.createIcons();
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+        function applyTheme(isDark) {
+            html.classList.toggle('dark', isDark);
+            themeIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+            if(window.particlesMaterial) window.particlesMaterial.color.setHex(isDark ? 0x10b981 : 0x0f172a);
+            lucide.createIcons();
+        }
+        themeToggle.addEventListener('click', () => {
+            const isDark = !html.classList.contains('dark');
+            applyTheme(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+        applyTheme(localStorage.getItem('theme') !== 'light');
+
+        // Three.js Logic (Simple version for tools)
+        let scene, camera, renderer, particles;
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            const geometry = new THREE.BufferGeometry();
+            const posArray = new Float32Array(1000 * 3);
+            for(let i=0; i<3000; i++) posArray[i] = (Math.random()-0.5)*10;
+            geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            window.particlesMaterial = new THREE.PointsMaterial({ size: 0.005, color: html.classList.contains('dark') ? 0x10b981 : 0x0f172a, transparent: true, opacity: 0.4 });
+            particles = new THREE.Points(geometry, window.particlesMaterial);
+            scene.add(particles);
+            camera.position.z = 3;
+        }
+        function animate() { requestAnimationFrame(animate); particles.rotation.y += 0.001; renderer.render(scene, camera); }
+        initThree(); animate();
+    </script>
+</body>
+</html>

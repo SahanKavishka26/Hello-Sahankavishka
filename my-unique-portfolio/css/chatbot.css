@@ -1,0 +1,156 @@
+/* --- chatbot.css --- */
+
+/* 1. Chat Button (Floating) */
+.chatbot-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 50;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563eb, #06b6d4); /* Blue to Cyan */
+    color: white;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.chatbot-btn svg {
+    width: 30px;
+    height: 30px;
+}
+
+/* 2. Chat Window (The Box) */
+.chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    width: 350px;
+    height: 480px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0); /* මුලින් හැංගිලා තියෙන්නේ */
+    transform-origin: bottom right;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 51;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Dark Mode Support for Window */
+html.dark .chat-window {
+    background-color: #0f172a; /* Slate 900 */
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.chat-window.open {
+    transform: scale(1); /* Active වුණාම පේනවා */
+}
+
+/* 3. Header */
+.chat-header {
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    padding: 16px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* 4. Messages Area */
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #f8fafc;
+}
+
+html.dark .chat-messages {
+    background-color: #020617; /* Very dark slate */
+}
+
+/* Message Bubbles */
+.msg {
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    max-width: 80%;
+    line-height: 1.5;
+    animation: fadeInUp 0.3s ease;
+}
+
+.bot-msg {
+    background-color: #e2e8f0;
+    color: #0f172a;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+html.dark .bot-msg {
+    background-color: #1e293b;
+    color: #f8fafc;
+}
+
+.user-msg {
+    background-color: #2563eb;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+/* 5. Input Area */
+.chat-input-area {
+    padding: 12px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    gap: 8px;
+    background-color: white;
+}
+
+html.dark .chat-input-area {
+    background-color: #0f172a;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: transparent;
+    color: inherit;
+    outline: none;
+}
+
+html.dark .chat-input-area input {
+    border-color: #334155;
+}
+
+.chat-input-area button {
+    background: none;
+    border: none;
+    color: #2563eb;
+    cursor: pointer;
+    padding: 8px;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
